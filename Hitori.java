@@ -119,6 +119,15 @@ private boolean areAllWhiteCellsConnected() {
                 return false; // Found an isolated white cell.
             }
         }
+// Marks a cell as black
+private void markCellBlack(int row, int col) {
+    blackenedGrid[row][col] = true;
+}
+
+// Reverts a cell from being marked as black
+private void unmarkCellBlack(int row, int col) {
+    blackenedGrid[row][col] = false;
+}
     }
 public int[][] getOriginalGrid() {
     return grid; // Return the original puzzle grid.
