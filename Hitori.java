@@ -63,8 +63,19 @@ private boolean solveRecursive(int row, int col) {
 }
 
 private boolean isValidToLeaveWhite(int row, int col) {
-    // Placeholder: In-depth logic to be added
+    int num = grid[row][col];
+    // Check for identical numbers horizontally and vertically
+    for (int i = 0; i < size; i++) {
+        if (i != col && grid[row][i] == num && !blackenedGrid[row][i]) {
+            return false; // Identical number found in the row
+        }
+        if (i != row && grid[i][col] == num && !blackenedGrid[i][col]) {
+            return false; // Identical number found in the column
+        }
+    }
+    // Additional rules can be added here
     return true;
+}
 }
 
 private void markCellBlack(int row, int col) {
