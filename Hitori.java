@@ -16,10 +16,7 @@ public class Hitori {
 		return false;
 	}
 	
-	//OPTIONAL for Extra Credit
-	public ArrayList<String> findAllSolutions() {
-		return null;
-	}
+	
 	
 
 	public int[][] getOriginalGrid(){
