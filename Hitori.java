@@ -74,16 +74,53 @@ private boolean isValidToLeaveWhite(int row, int col) {
         }
     }
     // Additional rules can be added here
-    return true;
-}
+// Helper method to find the first white cell in the grid.
+private int[] findFirstWhiteCell() {
+    for (int row = 0; row < size; row++) {
+        for (int col = 0; col < size; col++) {
+            if (!blackenedGrid[row][col]) { // Assuming non-blackened cells are white.
+                return new int[] {row, col};
+            }
+        }
+    }
+    return new int[] {-1, -1}; // Indicates no white cells were found.
 }
 
-private void markCellBlack(int row, int col) {
-    blackenedGrid[row][col] = true;
+// Method to perform DFS from a given cell.
+private void dfs(int row, int col, boolean[][] visited) {
+    if (row < 0 || row >= size || col < 0 || col >= size) {
+        return; // Out of bounds.
+    }
+    if (visited[row][col] || blackenedGrid[row][col]) {
+        return; // Already visited or is a black cell.
+    }
+    visited[row][col] = true; // Mark as visited.
+    
+    // Recursively visit all neighboring cells.
+    dfs(row + 1, col, visited);
+    dfs(row - 1, col, visited);
+    dfs(row, col + 1, visited);
+    dfs(row, col - 1, visited);
 }
 
-private void unmarkCellBlack(int row, int col) {
-    blackenedGrid[row][col] = false;
+// Checks if all white cells are connected.
+private boolean areAllWhiteCellsConnected() {
+    boolean[][] visited = new boolean[size][size];
+    int[] startCell = findFirstWhiteCell();
+    if (startCell[0] == -1) {
+        return true; // No white cells to check.
+    }
+    dfs(startCell[0], startCell[1], visited);
+    
+    // Ensure all white cells were visited.
+    for (int row = 0; row < size; row++) {
+        for (int col = 0; col < size; col++) {
+            if (!blackenedGrid[row][col] && !visited[row][col]) {
+                return false; // Found an isolated white cell.
+            }
+        }
+    }
+    return true; // All white cells are connected.
 }
 
 }
