@@ -120,9 +120,27 @@ private boolean areAllWhiteCellsConnected() {
             }
         }
     }
-    return true; // All white cells are connected.
+public int[][] getOriginalGrid() {
+    return grid; // Return the original puzzle grid.
 }
 
+public int getSize() {
+    return size; // Return the size of the puzzle grid.
+}
+
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int row = 0; row < size; row++) {
+        for (int col = 0; col < size; col++) {
+            if (blackenedGrid[row][col]) {
+                sb.append("  "); // Represent blackened cells with spaces.
+            } else {
+                sb.append(grid[row][col]).append(" ");
+            }
+        }
+        sb.append("\n");
+    }
+    return sb.toString();
 }
 
 }
